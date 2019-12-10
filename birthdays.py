@@ -7,21 +7,6 @@ from selenium.webdriver.common.by import By
 import time, json
 from datetime import date
 
-with open('birthdays.json') as birthdays_json:
-    birthdays = json.load(birthdays_json)
-
-today = date.today()
-day = today.day
-month = today.month
-today_str = str(day)+'-'+str(month)
-print(today_str)
-
-for birthday in birthdays:
-    if birthdays[birthday]["Birthday"] == today_str:
-        message = birthdays[birthday]["Message"]
-        wish_birthday(birthday,message)
-
-
 def wish_birthday(birthday_boy, message):
     chrome_options = Options()
     chrome_options.add_argument("--user-data-dir=chrome-data")
@@ -46,3 +31,18 @@ def wish_birthday(birthday_boy, message):
 
     finally:
         driver.quit()
+
+with open('birthdays.json') as birthdays_json:
+    birthdays = json.load(birthdays_json)
+
+today = date.today()
+day = today.day
+month = today.month
+today_str = str(day)+'-'+str(month)
+
+for birthday in birthdays:
+    if birthdays[birthday]["Birthday"] == today_str:
+        message = birthdays[birthday]["Message"]
+        wish_birthday(birthday,message)
+
+
